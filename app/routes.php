@@ -13,5 +13,20 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('tasks');
 });
+
+Route::post('/tasks', function()
+{
+    $taskName = Input::get('name');
+    $taskDate = Input::get('due_date');
+
+    $task = new Task();
+    $task->name = $taskName;
+    $task->due_date = $taskDate;
+    $task->done = false;
+    $task->save();
+
+    return Response::json($task);
+
+ });

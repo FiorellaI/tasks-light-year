@@ -12,8 +12,14 @@ var addTask = function() {
 	var newTask = {};
 	newTask.done = false;
 	newTask.name = $("#taskName").val();
-	newTask.date = $("#taskDate").datepicker('getDate');
+	newTask.due_date = moment($("#taskDate").datepicker('getDate')).format("YYY-MM-DD");
 	tasks.push(newTask);
+
+
+    $.post('/tasks', newTask, function(data){
+        console.log(data);
+    },'json');
+
 
 	var item = $(".list-group-item:first").clone();
 	item.find("[data-field=task-name]").html(newTask.name);
